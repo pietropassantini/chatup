@@ -1,0 +1,78 @@
+
+@startuml
+
+interface NotifyEventServer{
+}
+
+class ComunucationServer{
+Socket:client
+boolean:isAlive
+String:nickname
+    ComunicationServer(Socket)
+    boolean:checkNickname(String)
+    void:endComunication()
+    String:getNickname()
+    void:notifyNewUser(String)
+    void:notifyGlobalMessage(String,String)
+    void:notifyPivateMessage(String,String,String)
+    diud:notifyRequest(String)
+    run()
+}
+
+class ServerChatUp{
+    void:closeConnection()
+    void:getGlobalMessage()
+    int:getLastGlobalID()
+    int:getLastPrivateID()
+    int:getPrivatelMessage(String)
+    String:getUsers()
+    void:initializeDatabase()
+    void:insertGlobaMessage(String,String)
+    void:insertPrivateMessage(String,String)
+    boolean:isFreeNickname(String)
+    void:notifyAllNewUser(String)
+    void:removeNotifier(String)
+    void:sendGlobalMessage(String,String)
+    sendPrivateMessage(String,String,String)
+    void:shutdows()
+}
+class ConnectioDb
+enum ChatProtocol{
+    ACCEPT("accept"),
+    GLOBAL("global"),
+    PRIVATE("private"),
+    WELCOME("welcome"),
+    LIST("list"),
+    GETGLOBAL("getglobal"),
+    GETPRIVATE("getprivate"),
+    RCVLIST("rcvlist"),
+    RCVGLOBAL("rcvglobal"),
+    RCVPRIVATE("rcvprivate"),
+    CLOSE("close");
+
+}
+
+class GlobalMsgBean{
+}
+    class PrivateMsgBean{
+    id:int
+    msg:String
+    receiver:String
+    sender:String
+    time:String
+}
+class UserBean{
+    nickname:String
+}
+class GlobalMsgBean{
+    id:int
+    msg:String
+    sender:String
+    time:String
+ }
+
+NotifyEventServer<|--ComunucationServer
+ComunucationServer*--ServerChatUp
+
+
+@enduml
